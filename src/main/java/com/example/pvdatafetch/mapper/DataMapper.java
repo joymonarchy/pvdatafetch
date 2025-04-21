@@ -41,7 +41,7 @@ public interface DataMapper {
             ") VALUES (",
             "  #{alignTime}, ",
             "  <foreach collection='values' item='item' separator=','>",
-            "    #{item.value.value}",
+            "    #{item.value.Value}",
             "  </foreach>",
             ")",
             "ON DUPLICATE KEY UPDATE ",

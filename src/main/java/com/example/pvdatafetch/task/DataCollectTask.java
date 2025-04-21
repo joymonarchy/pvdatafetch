@@ -37,7 +37,7 @@ public class DataCollectTask {
 
 
     // 每10分钟执行一次（cron表达式示例）
-    @Scheduled(fixedRate = 10*60*1000)
+    @Scheduled(fixedRate = 5*60*1000)
     public void collectAllTablesData() {
         // 步骤1：获取所有设备表
         List<String> deviceTables = dataMapper.listDeviceTables();
@@ -57,6 +57,7 @@ public class DataCollectTask {
 
             // 步骤2.2：从外部系统获取实时值
             List<YFNowval> nowValues = connect.GetNowValue(cpids);
+            System.out.println(nowValues);
 
             // 步骤2.3：时间对齐（取当前时间的整分钟）
             Date alignTime = alignTimeToMinute(new Date());
