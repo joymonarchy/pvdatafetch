@@ -21,7 +21,7 @@ public interface DataMapper {
     // 获取所有设备表名
     @Select("SELECT table_name FROM information_schema.tables " +
             "WHERE table_schema = DATABASE() " +
-            "AND (table_name LIKE 'inverter_%' OR table_name LIKE 'combiner_box_%')")
+            "AND (table_name LIKE 'inverter_%' OR table_name LIKE 'combiner_box_%' OR tabel_name LIKE 'pvfarm_%')")
     List<String> listDeviceTables();
 
     // 获取指定表的字段列表（排除datetime）
