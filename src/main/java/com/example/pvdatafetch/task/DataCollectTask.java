@@ -42,14 +42,15 @@ public class DataCollectTask {
     public void collectAllTablesData() {
         // 步骤1：获取所有设备表
         List<String> deviceTables = dataMapper.listDeviceTables();
+        Date alignTime = alignTimeToMinute(new Date());
 
         // 步骤2：处理每张表
         for (String tableName : deviceTables) {
-            processSingleTable(tableName);
+            processSingleTable(tableName, alignTime);
         }
     }
 
-    private void processSingleTable(String tableName) {
+    private void processSingleTable(String tableName, Date alignTime) {
         // 步骤2.1：获取表的字段列表（cpids）
         List<String> cpids = dataMapper.listTableFields(tableName);
         cpids = cpids.stream()
@@ -69,9 +70,6 @@ public class DataCollectTask {
                     System.out.println("null or invalid value");
                 }
             }
-
-            // 步骤2.3：时间对齐（取当前时间的整分钟）
-            Date alignTime = alignTimeToMinute(new Date());
 
             // 步骤2.4：插入数据
             if (!nowValues.isEmpty()) {
