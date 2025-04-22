@@ -75,7 +75,7 @@ public class DataCollectTask {
 
             // 步骤2.4：插入数据
             if (!nowValues.isEmpty()) {
-//                dataMapper.insertAlignedData(tableName, alignTime, nowValues);
+                dataMapper.insertAlignedData(tableName, alignTime, nowValues);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -92,11 +92,22 @@ public class DataCollectTask {
     }
 
     // 时间对齐方法（取整分钟）
-    private Date alignTimeToMinute(Date date) {
+
+    private static Date alignTimeToMinute(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
+
+        // 将秒和毫秒归零
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
+
+        // 获取当前分钟数
+        int minute = cal.get(Calendar.MINUTE);
+
+        // 对齐到最近的往前整5分钟
+        int alignedMinute = (minute / 5) * 5;
+        cal.set(Calendar.MINUTE, alignedMinute);
+
         return cal.getTime();
     }
 }
