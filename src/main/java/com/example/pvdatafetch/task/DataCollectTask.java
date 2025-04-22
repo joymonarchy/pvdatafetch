@@ -58,13 +58,20 @@ public class DataCollectTask {
             // 步骤2.2：从外部系统获取实时值
             List<YFNowval> nowValues = connect.GetNowValue(cpids);
             System.out.println(nowValues);
+            for (YFNowval nowval : nowValues) {
+                if (nowval != null && nowval.value != null) {
+                    System.out.println(nowval.value.Value);
+                } else {
+                    System.out.println("null or invalid value");
+                }
+            }
 
             // 步骤2.3：时间对齐（取当前时间的整分钟）
             Date alignTime = alignTimeToMinute(new Date());
 
             // 步骤2.4：插入数据
             if (!nowValues.isEmpty()) {
-                dataMapper.insertAlignedData(tableName, alignTime, nowValues);
+//                dataMapper.insertAlignedData(tableName, alignTime, nowValues);
             }
         } catch (Exception e) {
             e.printStackTrace();
