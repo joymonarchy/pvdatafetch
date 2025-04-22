@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author piiaJet
@@ -51,6 +52,9 @@ public class DataCollectTask {
     private void processSingleTable(String tableName) {
         // 步骤2.1：获取表的字段列表（cpids）
         List<String> cpids = dataMapper.listTableFields(tableName);
+        cpids = cpids.stream()
+                .map(String::toUpperCase)
+                .collect(Collectors.toList());
         IYFApi connect = null;
         try {
             connect = YFFactory.CreateApi(apiHost, apiPort, apiUsername, apiPassword);
@@ -60,7 +64,7 @@ public class DataCollectTask {
             System.out.println(nowValues);
             for (YFNowval nowval : nowValues) {
                 if (nowval != null && nowval.value != null) {
-                    System.out.println(nowval.value.Value);
+                    System.out.println(nowval.Cpid+"\t"+nowval.value.Value);
                 } else {
                     System.out.println("null or invalid value");
                 }
