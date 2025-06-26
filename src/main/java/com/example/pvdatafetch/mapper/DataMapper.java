@@ -17,7 +17,8 @@ import java.util.Map;
  */
 @Mapper
 public interface DataMapper {
-
+    @Select("SELECT table_name FROM ${companyTable}")
+    List<String> listDeviceTablesFromCompanyTable(String companyTable);
     // 获取所有设备表名
     @Select("SELECT table_name FROM information_schema.tables " +
             "WHERE table_schema = DATABASE() " +

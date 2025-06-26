@@ -32,16 +32,19 @@ public class DataCollectTask {
     @Value("${api.password}")
     private String apiPassword;
 
+    @Value("${company.table}")
+    private String companyTable;
+
     @Autowired
     private DataMapper dataMapper;
 
 
 
-    // 每10分钟执行一次（cron表达式示例）
+    // 每5分钟执行一次（cron表达式示例）
     @Scheduled(fixedRate = 5*60*1000)
     public void collectAllTablesData() {
         // 步骤1：获取所有设备表
-        List<String> deviceTables = dataMapper.listDeviceTables();
+        List<String> deviceTables = dataMapper.listDeviceTablesFromCompanyTable(companyTable);
         Date alignTime = alignTimeToMinute(new Date());
 
         // 步骤2：处理每张表

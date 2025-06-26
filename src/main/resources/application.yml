@@ -22,3 +22,6 @@ api:
   username: "admin"
   password: "123456"
   #上面的需要连inode河北
+
+company:
+  table: "getsd"
